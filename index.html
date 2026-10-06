@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f4ed">
+    <title>PawMatch — find your kind of wonderful</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f5f4ed;
+            --ink: #172c25;
+            --muted: #62716a;
+            --green: #1b634b;
+            --green-dark: #124835;
+            --mint: #dcebe0;
+            --coral: #e98268;
+            --yellow: #f0c96c;
+            --line: #d9ded5;
+            --white: #fffefa;
+            --sans: "DM Sans", sans-serif;
+            --display: "Manrope", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .topline {
+            height: 5px;
+            background: linear-gradient(90deg, var(--green) 0 54%, var(--coral) 54% 78%, var(--yellow) 78%);
+        }
+
+        header {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1320px;
+            padding: 0 42px;
+            margin: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font: 800 22px var(--display);
+            letter-spacing: -.8px;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            background: var(--green);
+            color: white;
+            border-radius: 11px 11px 11px 4px;
+        }
+
+        .brand-mark svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            color: #4e6258;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        nav a {
+            transition: color .18s;
+        }
+
+        nav a:hover {
+            color: var(--green);
+        }
+
+        .nav-cta {
+            padding: 11px 17px;
+            border-radius: 7px;
+            color: white;
+            background: var(--green);
+        }
+
+        .nav-cta:hover {
+            color: white;
+            background: var(--green-dark);
+        }
+
+        main {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 17px 42px 76px;
+        }
+
+        .intro {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 32px;
+            align-items: end;
+            padding: 39px 0 33px;
+            animation: arrive .55s ease-out both;
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .eyebrow i {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--coral);
+        }
+
+        h1 {
+            max-width: 750px;
+            margin: 13px 0 11px;
+            font: 800 clamp(40px, 5vw, 66px)/1.04 var(--display);
+            letter-spacing: -3.5px;
+        }
+
+        h1 span {
+            color: var(--green);
+        }
+
+        .intro-copy {
+            max-width: 620px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        .intro-note {
+            border-left: 2px solid var(--coral);
+            padding: 4px 0 4px 18px;
+            margin: 0 0 5px;
+            color: #485c51;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .intro-note strong {
+            color: var(--ink);
+            font-family: var(--display);
+        }
+
+        .finder {
+            display: grid;
+            grid-template-columns: 325px minmax(0, 1fr);
+            gap: 32px;
+            align-items: start;
+        }
+
+        .quiz {
+            position: sticky;
+            top: 18px;
+            background: var(--white);
+            border: 1px solid #e5e5dc;
+            border-radius: 9px;
+            padding: 23px;
+            box-shadow: 0 8px 24px #253b2d0a;
+        }
+
+        .quiz-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 17px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .quiz-head h2 {
+            margin: 0;
+            font: 700 17px var(--display);
+            letter-spacing: -.3px;
+        }
+
+        .step {
+            color: var(--green);
+            background: #e8f0e8;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            letter-spacing: .8px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .field {
+            margin-top: 18px;
+        }
+
+        .field label,
+        .field legend {
+            display: block;
+            margin-bottom: 8px;
+            padding: 0;
+            color: #31463b;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .field select {
+            width: 100%;
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #dce1d9;
+            border-radius: 5px;
+            background: #fff;
+            color: var(--ink);
+            outline: none;
+        }
+
+        .field select:focus,
+        .field input:focus,
+        .field textarea:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px #1b634b1c;
+        }
+
+        fieldset.field {
+            border: 0;
+            padding: 0;
+        }
+
+        .choice-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .choice {
+            position: relative;
+        }
+
+        .choice input {
+            position: absolute;
+            opacity: 0;
+            inset: 0;
+        }
+
+        .choice span {
+            min-height: 37px;
+            display: grid;
+            place-items: center;
+            padding: 6px 4px;
+            border: 1px solid #dce1d9;
+            border-radius: 5px;
+            color: #53645b;
+            font-size: 11px;
+            text-align: center;
+            cursor: pointer;
+            transition: .16s ease;
+        }
+
+        .choice input:checked+span {
+            color: var(--green-dark);
+            border-color: var(--green);
+            background: #eaf2eb;
+            font-weight: 700;
+        }
+
+        .choice input:focus-visible+span {
+            outline: 3px solid #1b634b55;
+        }
+
+        .checkline {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            color: #53645b;
+            font-size: 12px;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .checkline input {
+            accent-color: var(--green);
+            margin: 2px 0 0;
+        }
+
+        .match-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: 0;
+            border-radius: 5px;
+            color: white;
+            background: var(--green);
+            font-size: 13px;
+            font-weight: 700;
+            transition: background .18s, transform .18s;
+        }
+
+        .match-button:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        .privacy {
+            margin: 11px 0 0;
+            color: #859087;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .results {
+            min-width: 0;
+        }
+
+        .results-bar {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            padding: 0 0 15px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .results-bar h2 {
+            margin: 0;
+            font: 700 22px var(--display);
+            letter-spacing: -.8px;
+        }
+
+        .results-bar p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .sort-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #65736c;
+            font-size: 11px;
+        }
+
+        .sort-control select {
+            border: 0;
+            background: transparent;
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .pet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            padding-top: 15px;
+        }
+
+        .pet-card {
+            overflow: hidden;
+            position: relative;
+            background: var(--white);
+            border: 1px solid #e4e4dc;
+            border-radius: 7px;
+            animation: arrive .42s ease-out both;
+            transition: transform .18s, box-shadow .18s;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 26px #253b2d12;
+        }
+
+        .pet-photo {
+            position: relative;
+            height: 194px;
+            overflow: hidden;
+            background: #e4e7dc;
+        }
+
+        .pet-photo img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform .45s;
+        }
+
+        .pet-card:hover .pet-photo img {
+            transform: scale(1.035);
+        }
+
+        .match-badge {
+            position: absolute;
+            left: 11px;
+            top: 11px;
+            background: var(--white);
+            padding: 7px 9px;
+            border-radius: 4px;
+            color: var(--green);
+            font-size: 10px;
+            font-weight: 700;
+            box-shadow: 0 2px 9px #0002;
+        }
+
+        .save-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            color: #233c30;
+            background: var(--white);
+        }
+
+        .save-button svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .save-button.saved {
+            color: #d15f50;
+        }
+
+        .pet-info {
+            padding: 14px 15px 15px;
+        }
+
+        .pet-name-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .pet-name-row h3 {
+            margin: 0;
+            font: 700 19px var(--display);
+            letter-spacing: -.5px;
+        }
+
+        .pet-age {
+            color: var(--muted);
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .pet-meta {
+            margin: 4px 0 11px;
+            color: #69776f;
+            font-size: 11px;
+        }
+
+        .pet-blurb {
+            min-height: 38px;
+            margin: 0 0 12px;
+            color: #4b5e53;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+
+        .tag {
+            padding: 5px 7px;
+            border-radius: 3px;
+            color: #416251;
+            background: #e9f0e8;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .tag.special {
+            color: #8a573c;
+            background: #f7e9da;
+        }
+
+        .pet-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .pet-actions button {
+            flex: 1;
+            min-height: 36px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .details-button {
+            border: 1px solid #d4ddd4;
+            color: var(--green);
+            background: transparent;
+        }
+
+        .details-button:hover {
+            background: #eff4ed;
+        }
+
+        .meet-button {
+            border: 1px solid var(--green);
+            color: white;
+            background: var(--green);
+        }
+
+        .meet-button:hover {
+            background: var(--green-dark);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 50px 22px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .empty-state strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--ink);
+            font: 700 18px var(--display);
+        }
+
+        .shelter-band {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin-top: 48px;
+            padding: 26px 29px;
+            background: var(--mint);
+            border-radius: 7px;
+        }
+
+        .shelter-band h2 {
+            margin: 0 0 5px;
+            font: 700 19px var(--display);
+            letter-spacing: -.5px;
+        }
+
+        .shelter-band p {
+            margin: 0;
+            color: #51665a;
+            font-size: 12px;
+        }
+
+        .shelter-band button {
+            flex: none;
+            border: 0;
+            border-radius: 4px;
+            padding: 12px 16px;
+            color: white;
+            background: var(--green);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            max-width: 1236px;
+            margin: 0 auto;
+            padding: 20px 0 32px;
+            display: flex;
+            justify-content: space-between;
+            color: #718077;
+            font-size: 11px;
+        }
+
+        dialog {
+            width: min(560px, calc(100% - 30px));
+            max-height: 90vh;
+            padding: 0;
+            border: 0;
+            border-radius: 8px;
+            color: var(--ink);
+            background: var(--white);
+            box-shadow: 0 24px 90px #0c251b55;
+        }
+
+        dialog::backdrop {
+            background: #122b20a8;
+            backdrop-filter: blur(3px);
+        }
+
+        .dialog-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px 23px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .dialog-head h2 {
+            margin: 0;
+            font: 700 22px var(--display);
+        }
+
+        .dialog-head p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .close-dialog {
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 50%;
+            color: #4b6054;
+            background: #edf1ea;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .dialog-content {
+            padding: 19px 23px 24px;
+            overflow: auto;
+        }
+
+        .profile-hero {
+            display: grid;
+            grid-template-columns: 142px 1fr;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .profile-hero img {
+            width: 142px;
+            height: 124px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .profile-hero p {
+            margin: 0;
+            color: #51645a;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .profile-facts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin: 20px 0;
+        }
+
+        .fact {
+            padding: 11px;
+            background: #f0f3ed;
+            border-radius: 4px;
+        }
+
+        .fact b {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 10px;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        .fact span {
+            color: #42554a;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .dialog-action {
+            width: 100%;
+            padding: 13px;
+            border: 0;
+            border-radius: 4px;
+            color: white;
+            background: var(--green);
+            font-weight: 700;
+        }
+
+        .shelter-form {
+            display: grid;
+            gap: 13px;
+        }
+
+        .shelter-form label {
+            display: grid;
+            gap: 6px;
+            color: #40554a;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .shelter-form input,
+        .shelter-form select,
+        .shelter-form textarea {
+            width: 100%;
+            padding: 10px 11px;
+            border: 1px solid #dce1d9;
+            border-radius: 4px;
+            background: white;
+            outline: 0;
+            color: var(--ink);
+            font-size: 13px;
+        }
+
+        .shelter-form textarea {
+            min-height: 73px;
+            resize: vertical;
+        }
+
+        .toast {
+            position: fixed;
+            z-index: 5;
+            right: 24px;
+            bottom: 24px;
+            padding: 13px 17px;
+            color: white;
+            background: var(--green-dark);
+            border-radius: 5px;
+            font-size: 12px;
+            box-shadow: 0 6px 25px #10291d40;
+            animation: arrive .2s ease-out;
+        }
+
+        @keyframes arrive {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 850px) {
+            header {
+                padding: 0 24px;
+            }
+
+            main {
+                padding: 12px 24px 55px;
+            }
+
+            nav {
+                gap: 18px;
+            }
+
+            .intro {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                padding-top: 30px;
+            }
+
+            .intro-note {
+                max-width: 550px;
+            }
+
+            .finder {
+                grid-template-columns: 280px minmax(0, 1fr);
+                gap: 20px;
+            }
+
+            .pet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pet-photo {
+                height: 210px;
+            }
+
+            footer {
+                margin: 0 24px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                height: 66px;
+                padding: 0 18px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            nav {
+                gap: 14px;
+                font-size: 12px;
+            }
+
+            nav a:nth-child(1) {
+                display: none;
+            }
+
+            .nav-cta {
+                padding: 9px 11px;
+            }
+
+            main {
+                padding: 4px 18px 42px;
+            }
+
+            h1 {
+                font-size: 43px;
+                letter-spacing: -2.6px;
+            }
+
+            .intro {
+                padding: 27px 0 25px;
+            }
+
+            .intro-copy {
+                font-size: 14px;
+            }
+
+            .finder {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .quiz {
+                position: static;
+                width: 100%;
+                padding: 19px;
+            }
+
+            .results {
+                width: 100%;
+            }
+
+            .results-bar {
+                align-items: center;
+            }
+
+            .results-bar h2 {
+                font-size: 19px;
+            }
+
+            .pet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pet-photo {
+                height: 228px;
+            }
+
+            .shelter-band {
+                align-items: flex-start;
+                flex-direction: column;
+                margin-top: 29px;
+                padding: 21px;
+            }
+
+            footer {
+                margin: 0 18px;
+            }
+
+            .profile-hero {
+                grid-template-columns: 105px 1fr;
+                gap: 12px;
+            }
+
+            .profile-hero img {
+                width: 105px;
+                height: 110px;
+            }
+
+            .dialog-content {
+                padding: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topline"></div>
+    <header>
+        <a class="brand" href="#top" aria-label="PawMatch home">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M8.1 10.1c1.2 0 2-1.5 1.7-3.1-.3-1.5-1.4-2.4-2.5-1.9-1.1.5-1.3 2-.8 3.4.3 1 1 1.6 1.6 1.6Zm7.8 0c.7 0 1.3-.6 1.6-1.6.5-1.4.3-2.9-.8-3.4-1.1-.5-2.2.4-2.5 1.9-.3 1.6.5 3.1 1.7 3.1ZM5.3 14c1 0 1.7-1.1 1.5-2.4-.2-1.2-1.1-1.9-2-1.5-.9.4-1.1 1.6-.7 2.7.3.8.7 1.2 1.2 1.2Zm13.4 0c.5 0 .9-.4 1.2-1.2.4-1.1.2-2.3-.7-2.7-.9-.4-1.8.3-2 1.5-.2 1.3.5 2.4 1.5 2.4ZM12 11c-1.7 0-5 3.4-5 5.9 0 1.8 1.2 2.9 2.7 2.6.9-.2 1.4-.8 2.3-.8s1.4.6 2.3.8c1.5.3 2.7-.8 2.7-2.6 0-2.5-3.3-5.9-5-5.9Z"
+                        fill="currentColor" />
+                </svg></span>
+            PawMatch
+        </a>
+        <nav aria-label="Main navigation">
+            <a href="#matches">Find your match</a>
+            <a href="#shelters">For shelters</a>
+            <a class="nav-cta" href="#quiz">Start matching <span aria-hidden="true">↗</span></a>
+        </nav>
+    </header>
+    <main id="top">
+        <section class="intro" aria-labelledby="page-title">
+            <div>
+                <div class="eyebrow"><i></i> A better kind of hello</div>
+                <h1 id="page-title">Find your kind<br>of <span>wonderful.</span></h1>
+                <p class="intro-copy">The best match isn't always the cutest photo. Tell us about your life, and we'll
+                    help you meet the pet who can thrive in it.</p>
+            </div>
+            <p class="intro-note"><strong>It's a two-way match.</strong><br>We look at what you can offer, and what each
+                animal needs to feel at home.</p>
+        </section>
+        <section class="finder" aria-label="Pet matching">
+            <form class="quiz" id="quiz">
+                <div class="quiz-head">
+                    <h2>Your everyday life</h2><span class="step">01 / 04</span>
+                </div>
+                <div class="field">
+                    <label for="home">Your home</label>
+                    <select id="home" name="home">
+                        <option value="any">Open to any home</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="house">House with a yard</option>
+                        <option value="quiet">Quiet household</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="preference">Pet preference</label>
+                    <select id="preference" name="preference">
+                        <option value="any">Open to any animal</option>
+                        <option value="Dog">I'd love a dog</option>
+                        <option value="Cat">I'd love a cat</option>
+                        <option value="Rabbit">I'd love a rabbit</option>
+                        <option value="Bird">I'd love a bird</option>
+                        <option value="Small pet">I'd love a small pet</option>
+                    </select>
+                </div>
+                <fieldset class="field">
+                    <legend>Time for a pet, most days</legend>
+                    <div class="choice-row">
+                        <label class="choice"><input type="radio" name="time" value="little"><span>Under 2
+                                hrs</span></label>
+                        <label class="choice"><input type="radio" name="time" value="some" checked><span>2–4
+                                hrs</span></label>
+                        <label class="choice"><input type="radio" name="time" value="lots"><span>4+ hrs</span></label>
+                    </div>
+                </fieldset>
+                <div class="field">
+                    <label for="energy">Your ideal energy level</label>
+                    <select id="energy" name="energy">
+                        <option value="any">A little of everything</option>
+                        <option value="low">Easygoing & mellow</option>
+                        <option value="medium">Playful, with downtime</option>
+                        <option value="high">Always up for an adventure</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="experience">Pet experience</label>
+                    <select id="experience" name="experience">
+                        <option value="any">Any experience level</option>
+                        <option value="new">First-time pet parent</option>
+                        <option value="some">I've had pets before</option>
+                        <option value="experienced">Experienced with pets</option>
+                    </select>
+                </div>
+                <fieldset class="field">
+                    <legend>Who else is at home?</legend>
+                    <div class="choice-row">
+                        <label class="choice"><input type="radio" name="family" value="any" checked><span>Just me /
+                                adults</span></label>
+                        <label class="choice"><input type="radio" name="family" value="kids"><span>Kids</span></label>
+                        <label class="choice"><input type="radio" name="family" value="pets"><span>Other
+                                pets</span></label>
+                    </div>
+                </fieldset>
+                <div class="field">
+                    <label for="budget">Monthly care budget</label>
+                    <select id="budget" name="budget">
+                        <option value="any">Flexible</option>
+                        <option value="under100">Under $100</option>
+                        <option value="100to200">$100–$200</option>
+                        <option value="over200">$200+</option>
+                    </select>
+                </div>
+                <button class="match-button" type="submit">Show my matches <span aria-hidden="true">→</span></button>
+                <p class="privacy">Your answers stay here. No account needed.</p>
+            </form>
+            <div class="results" id="matches">
+                <div class="results-bar">
+                    <div>
+                        <h2>Meet your matches</h2>
+                        <p id="result-caption">A few good beginnings, picked for you.</p>
+                    </div>
+                    <label class="sort-control" for="sort">Sort <select id="sort" aria-label="Sort matches">
+                            <option value="match">Best match</option>
+                            <option value="youngest">Youngest</option>
+                            <option value="oldest">Oldest</option>
+                        </select></label>
+                </div>
+                <div class="pet-grid" id="pet-grid" aria-live="polite"></div>
+            </div>
+        </section>
+        <section class="shelter-band" id="shelters">
+            <div>
+                <h2>Helping a pet find their people?</h2>
+                <p>Give adopters a fuller picture of who they're welcoming home.</p>
+            </div>
+            <button id="shelter-open" type="button">Create an animal profile <span aria-hidden="true">→</span></button>
+        </section>
+    </main>
+    <footer><span>© 2025 PawMatch</span><span>Better matches. Happier homes.</span></footer>
+    <dialog id="profile-dialog" aria-labelledby="profile-title"></dialog>
+    <dialog id="shelter-dialog" aria-labelledby="shelter-title"></dialog>
+    <script>
+        const pets = [
+            { id: "nori", name: "Nori", age: "3 years", years: 3, kind: "Cat · Domestic shorthair", place: "Oak Street Rescue · 4 mi", energy: "low", home: ["apartment", "quiet"], time: "little", first: true, kids: true, pets: false, budget: "under100", tags: ["Gentle", "Indoor life", "Likes a slow hello"], image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1000&q=85", blurb: "A thoughtful little companion who loves a sunny window and a familiar routine.", temperament: "Soft-spoken, affectionate once she knows you, and happiest in peaceful spaces.", health: "Healthy at recent checkup. Spayed, microchipped, and vaccinated for FVRCP and rabies.", needs: "Indoor home; prefers a calm introduction. No known special medical needs.", care: "Low-key care, regular play, and a predictable feeding routine." },
+            { id: "milo", name: "Milo", age: "2 years", years: 2, kind: "Dog · Beagle mix", place: "Northside Animal Aid · 2 mi", energy: "medium", home: ["house", "apartment"], time: "some", first: false, kids: true, pets: true, budget: "100to200", tags: ["People-friendly", "Sniff walks", "Dog-social"], image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=85", blurb: "An easygoing walking buddy with a world-class nose and a fondness for people.", temperament: "Curious, cheerful, and food-motivated. Settles nicely after a good walk.", health: "Neutered, microchipped, and up to date on core vaccines. Recent exam looked good.", needs: "Daily sniff walks and puzzle play. Has lived with another friendly dog.", care: "Moderate exercise and ongoing positive-reinforcement training." },
+            { id: "juniper", name: "Juniper", age: "8 months", years: 0.7, kind: "Dog · Golden retriever mix", place: "Second Chance Paws · 6 mi", energy: "high", home: ["house"], time: "lots", first: false, kids: true, pets: true, budget: "100to200", tags: ["Bright & busy", "Needs a yard", "Training in progress"], image: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1000&q=85", blurb: "A clever young explorer ready for training games, long walks, and a best friend.", temperament: "Confident, playful, and quick to learn. Still practicing her polite greetings.", health: "Vaccines current for age; spayed and microchipped. Shelter records available.", needs: "Secure outdoor space recommended. Best with an active home and continued training.", care: "High daily activity, enrichment, and patient consistency as she grows." },
+            { id: "peaches", name: "Peaches", age: "6 years", years: 6, kind: "Cat · Domestic shorthair", place: "Oak Street Rescue · 4 mi", energy: "low", home: ["apartment", "quiet"], time: "little", first: true, kids: false, pets: false, budget: "under100", tags: ["Independent", "Quiet home", "Senior-soul energy"], image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=1000&q=85", blurb: "A mellow, independent friend who appreciates company without needing the spotlight.", temperament: "Calm and observant. Bonds gently and enjoys sharing a room at her own pace.", health: "Spayed and vaccinated; recent wellness visit on file. No current concerns reported.", needs: "Would do best as the only pet in a quieter home.", care: "Low-maintenance companionship and routine annual veterinary care." },
+            { id: "clover", name: "Clover", age: "2 years", years: 2, kind: "Rabbit · Lionhead mix", place: "Riverbend Rabbit Rescue · 7 mi", energy: "medium", home: ["apartment", "quiet"], time: "some", first: false, kids: false, pets: false, budget: "100to200", tags: ["Indoor home", "Hay enthusiast", "Gentle handling"], image: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=1000&q=85", blurb: "A curious, gentle house rabbit who likes exploring at her own pace and a fresh pile of hay.", temperament: "Quietly curious and affectionate once she trusts you. She prefers calm, floor-level visits.", health: "Spayed; recent exam and dental records are available from the rescue. Ask about local rabbit vaccine guidance.", needs: "Needs a roomy indoor exercise pen, bunny-proofed space, and a rabbit-savvy veterinarian.", care: "Daily hay, fresh greens, litter care, and supervised time to explore." },
+            { id: "pippin", name: "Pippin", age: "5 years", years: 5, kind: "Bird · Green-cheeked conure", place: "Feathered Friends Network · 9 mi", energy: "high", home: ["house", "quiet"], time: "lots", first: false, kids: false, pets: false, budget: "over200", tags: ["Social bird", "Enrichment every day", "Avian vet"], image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=1000&q=85", blurb: "A clever little chatterbox looking for daily company, patient training, and a bird-safe home.", temperament: "Playful, vocal, and people-oriented. Needs time to warm up and positive-reinforcement training.", health: "Avian veterinary exam on file. The rescue can share history and discuss ongoing specialist care.", needs: "Needs supervised out-of-cage time, a safe flight area, and a home prepared for noise and a long commitment.", care: "Daily social time, foraging toys, fresh food, and regular avian-vet checkups." },
+            { id: "bean-and-sprout", name: "Bean & Sprout", age: "1 year", years: 1, kind: "Small pet · Bonded guinea pigs", place: "Maple Pocket Pets · 3 mi", energy: "low", home: ["apartment", "quiet"], time: "some", first: true, kids: true, pets: false, budget: "under100", tags: ["Adopt as a pair", "Gentle voices", "Indoor enclosure"], image: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1000&q=85", blurb: "A bonded pair who greet familiar people with happy squeaks and love fresh greens.", temperament: "Curious and gentle together. They feel safest with patient handling and a predictable routine.", health: "Both had recent wellness checks; records and sex confirmation are available from the rescue.", needs: "Must stay together in a spacious indoor enclosure with daily supervised floor time.", care: "Unlimited hay, fresh vegetables, vitamin C, daily spot cleaning, and an exotic-pet vet." }
+        ];
+
+        const grid = document.querySelector("#pet-grid");
+        const quiz = document.querySelector("#quiz");
+        const profileDialog = document.querySelector("#profile-dialog");
+        const shelterDialog = document.querySelector("#shelter-dialog");
+        let currentMatches = [...pets];
+
+        function scorePet(pet, answers) {
+            let score = 68;
+            if (answers.home !== "any") score += pet.home.includes(answers.home) ? 9 : -14;
+            if (answers.energy !== "any") score += pet.energy === answers.energy ? 10 : -8;
+            if (answers.time) score += pet.time === answers.time ? 8 : (answers.time === "lots" ? 2 : -8);
+            if (answers.experience === "new") score += pet.first ? 8 : -5;
+            if (answers.experience === "experienced") score += pet.energy === "high" ? 5 : 0;
+            if (answers.family === "kids") score += pet.kids ? 7 : -12;
+            if (answers.family === "pets") score += pet.pets ? 7 : -12;
+            if (answers.budget !== "any") score += pet.budget === answers.budget ? 5 : -7;
+            return Math.max(54, Math.min(99, score));
+        }
+
+        function answersFromForm() {
+            const data = new FormData(quiz);
+            return Object.fromEntries(data.entries());
+        }
+
+        function renderPets(answers = answersFromForm()) {
+            const sort = document.querySelector("#sort").value;
+            const ranked = pets.filter(pet => answers.preference === "any" || pet.kind.startsWith(answers.preference)).map(pet => ({ ...pet, score: scorePet(pet, answers) }));
+            if (sort === "youngest") ranked.sort((a, b) => a.years - b.years);
+            else if (sort === "oldest") ranked.sort((a, b) => b.years - a.years);
+            else ranked.sort((a, b) => b.score - a.score);
+            currentMatches = ranked;
+            grid.innerHTML = ranked.map((pet, index) => `
+				<article class="pet-card" style="animation-delay:${index * 65}ms">
+					<div class="pet-photo"><img src="${pet.image}" alt="${pet.name}, an adoptable ${pet.kind.toLowerCase()}" loading="${index < 2 ? "eager" : "lazy"}"><span class="match-badge">${pet.score}% lifestyle match</span><button class="save-button" type="button" aria-label="Save ${pet.name}" aria-pressed="false" data-save="${pet.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 8.8c0 4.4-8.8 10-8.8 10S3.2 13.2 3.2 8.8A4.3 4.3 0 0 1 12 6.4a4.3 4.3 0 0 1 8.8 2.4Z"/></svg></button></div>
+					<div class="pet-info"><div class="pet-name-row"><h3>${pet.name}</h3><span class="pet-age">${pet.age}</span></div><p class="pet-meta">${pet.kind} <span aria-hidden="true">·</span> ${pet.place}</p><p class="pet-blurb">${pet.blurb}</p><div class="tags">${pet.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div><div class="pet-actions"><button class="details-button" type="button" data-details="${pet.id}">Meet ${pet.name}</button><button class="meet-button" type="button" data-interest="${pet.id}">I'm interested</button></div></div>
+				</article>`).join("");
+            document.querySelector("#result-caption").textContent = `${ranked.length} thoughtful matches, starting with your best fit.`;
+        }
+
+        function showPetDetails(id) {
+            const pet = currentMatches.find(match => match.id === id) || pets.find(match => match.id === id);
+            profileDialog.innerHTML = `<div class="dialog-head"><div><h2 id="profile-title">${pet.name}</h2><p>${pet.kind} · ${pet.age} · ${pet.place}</p></div><button class="close-dialog" type="button" aria-label="Close">×</button></div><div class="dialog-content"><div class="profile-hero"><img src="${pet.image}" alt="${pet.name}"><p>${pet.blurb}<br><br><strong>${pet.score || scorePet(pet, answersFromForm())}% lifestyle match</strong> based on the home and routine you described.</p></div><div class="profile-facts"><div class="fact"><b>Personality</b><span>${pet.temperament}</span></div><div class="fact"><b>Health & vaccines</b><span>${pet.health}</span></div><div class="fact"><b>Home fit</b><span>${pet.needs}</span></div><div class="fact"><b>Day-to-day care</b><span>${pet.care}</span></div></div><button class="dialog-action" type="button" data-interest="${pet.id}">Ask about meeting ${pet.name}</button></div>`;
+            profileDialog.showModal();
+        }
+
+        function openShelterForm() {
+            shelterDialog.innerHTML = `<div class="dialog-head"><div><h2 id="shelter-title">Tell their story</h2><p>Start an animal profile for potential adopters.</p></div><button class="close-dialog" type="button" aria-label="Close">×</button></div><div class="dialog-content"><form class="shelter-form" id="shelter-form"><label>Animal's name<input name="animal" required placeholder="e.g. Clover"></label><label>Animal type<select name="type"><option>Dog</option><option>Cat</option><option>Other</option></select></label><label>Rescue or shelter name<input name="shelter" required placeholder="Your organization"></label><label>Temperament and ideal home<textarea name="story" required placeholder="What helps this animal feel safe and settled?"></textarea></label><label>Health, vaccines, or special care<textarea name="health" placeholder="Share what adopters should know"></textarea></label><button class="dialog-action" type="submit">Save profile draft</button></form></div>`;
+            shelterDialog.showModal();
+        }
+
+        function showToast(message) {
+            document.querySelector(".toast")?.remove();
+            const toast = document.createElement("div");
+            toast.className = "toast";
+            toast.setAttribute("role", "status");
+            toast.textContent = message;
+            document.body.append(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        quiz.addEventListener("submit", event => {
+            event.preventDefault();
+            renderPets();
+            document.querySelector("#matches").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        document.querySelector("#sort").addEventListener("change", () => renderPets());
+        grid.addEventListener("click", event => {
+            const save = event.target.closest("[data-save]");
+            const details = event.target.closest("[data-details]");
+            const interest = event.target.closest("[data-interest]");
+            if (save) {
+                const active = save.getAttribute("aria-pressed") !== "true";
+                save.setAttribute("aria-pressed", String(active));
+                save.classList.toggle("saved", active);
+                save.setAttribute("aria-label", `${active ? "Unsave" : "Save"} ${pets.find(p => p.id === save.dataset.save).name}`);
+                showToast(active ? "Saved to your shortlist" : "Removed from your shortlist");
+            } else if (details) showPetDetails(details.dataset.details);
+            else if (interest) {
+                const pet = pets.find(match => match.id === interest.dataset.interest);
+                profileDialog.close();
+                showToast(`Great start. Contact ${pet.place.split(" · ")[0]} to meet ${pet.name}.`);
+            }
+        });
+        document.querySelector("#shelter-open").addEventListener("click", openShelterForm);
+        document.body.addEventListener("click", event => {
+            if (event.target.closest(".close-dialog")) event.target.closest("dialog").close();
+        });
+        profileDialog.addEventListener("click", event => {
+            const interest = event.target.closest("[data-interest]");
+            if (!interest) return;
+            const pet = pets.find(match => match.id === interest.dataset.interest);
+            profileDialog.close();
+            showToast(`Great start. Contact ${pet.place.split(" · ")[0]} to meet ${pet.name}.`);
+        });
+        shelterDialog.addEventListener("submit", event => {
+            if (event.target.id !== "shelter-form") return;
+            event.preventDefault();
+            shelterDialog.close();
+            showToast("Profile draft saved in this session.");
+        });
+        renderPets();
+    </script>
+</body>
+
+</html>
