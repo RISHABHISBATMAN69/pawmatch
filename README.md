@@ -10,13 +10,6 @@ PawMatch is a pet adoption matching prototype. It helps adopters compare animals
 - A shelter profile form for drafting an animal listing.
 - Responsive, single-page interface with no build step or package dependencies.
 
-## Run locally
-
-Open `index.html` in a browser, or serve the project directory with Python:
-
-```sh
-python3 -m http.server 8000
-```
 
 ## Prototype notes
 
